@@ -9,7 +9,7 @@ gender = st.selectbox("Gender", ["Male", "Female"])
 action = st.text_input("Action", placeholder="e.g., switch to a remote job or volunteer")
 
 # Whole number input for age
-age = st.number_input("Age", min_value=0, max_value=120, step=1, format="%d")
+age = st.number_input("Age", min_value=1, max_value=120, value=18, step=1, format="%d")
 
 # Real number inputs for Integrity, Sustainability, Community with at most one decimal point
 integrity = st.number_input("Integrity", min_value=0.0, max_value=1.0, step=0.1, format="%.1f")
