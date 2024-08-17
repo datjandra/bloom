@@ -1,4 +1,5 @@
 import streamlit as st
+import os
 
 INPUT_PROMPT = os.getenv("INPUT_PROMPT")
 
