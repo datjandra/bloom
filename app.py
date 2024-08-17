@@ -1,5 +1,7 @@
 import streamlit as st
 
+INPUT_PROMPT = os.getenv("INPUT_PROMPT")
+
 # Set up the Streamlit page
 st.title("Value Alignment Evaluation")
 
@@ -30,12 +32,7 @@ if st.button("Submit"):
         # Handle the case where gender is not recognized
         gender_subject = "They"
         gender_possessive = "Their"
-    
+
+    input_prompt = INPUT_PROMPT.format(name=name, age=age, gender_subject=gender_subject, gender_possessive=gender_possessive, action=action, integrity=integrity, sustainability=sustainabiity, community=community)
     st.write("Submitted Information:")
-    st.write(f"Name: {name}")
-    st.write(f"Gender: {gender}")
-    st.write(f"Age: {age}")
-    st.write(f"Action: {action}")
-    st.write(f"Integrity: {integrity}")
-    st.write(f"Sustainability: {sustainability}")
-    st.write(f"Community: {community}")
+    st.write(input_prompt)
