@@ -6,7 +6,7 @@ st.title("Value Alignment Evaluation")
 # Text inputs
 name = st.text_input("Name")
 gender = st.selectbox("Gender", ["Male", "Female"])
-action = st.text_input("Action")
+action = st.text_input("Action", placeholder="e.g., switch to a remote job or volunteer")
 
 # Whole number input for age
 age = st.number_input("Age", min_value=0, max_value=120, step=1, format="%d")
