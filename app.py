@@ -34,6 +34,6 @@ if st.button("Submit"):
         gender_subject = "They"
         gender_possessive = "Their"
 
-    input_prompt = INPUT_PROMPT.format(name=name, age=age, gender_subject=gender_subject, gender_possessive=gender_possessive, action=action, integrity=integrity, sustainability=sustainabiity, community=community)
+    input_prompt = INPUT_PROMPT.format(name=name, age=age, gender_subject=gender_subject, gender_possessive=gender_possessive, action=action, integrity=integrity, sustainability=sustainability, community=community)
     st.write("Submitted Information:")
     st.write(input_prompt)
