@@ -19,6 +19,18 @@ community = st.number_input("Community", min_value=0.0, max_value=1.0, step=0.1,
 # Submit button
 if st.button("Submit"):
     # Process the inputs
+    # Determine gender-specific terms
+    if gender == "Male":
+        gender_subject = "He"
+        gender_possessive = "His"
+    elif gender == "Female":
+        gender_subject = "She"
+        gender_possessive = "Her"
+    else:
+        # Handle the case where gender is not recognized
+        gender_subject = "They"
+        gender_possessive = "Their"
+    
     st.write("Submitted Information:")
     st.write(f"Name: {name}")
     st.write(f"Gender: {gender}")
