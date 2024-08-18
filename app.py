@@ -10,13 +10,31 @@ INPUT_PROMPT = os.getenv("INPUT_PROMPT")
 
 # Function to save radar chart as PDF
 def save_pdf(fig, data, integrity, sustainability, community):
+    # Save radar chart as an image
+    img_bytes = fig.to_image(format="png")
+    
+    # Create a PDF
     pdf = FPDF()
     pdf.add_page()
     
     # Add title
     pdf.set_font("Arial", size=12)
     pdf.cell(200, 10, txt="Personal Evaluation Report", ln=True, align='C')
-
+    
+    # Add radar chart image
+    pdf.image(io.BytesIO(img_bytes), x=10, y=20, w=180)
+    
+    # Add rationales
+    pdf.ln(120)  # Move cursor to the next line
+    pdf.set_font("Arial", size=10)
+    pdf.cell(200, 10, txt="Rationales:", ln=True)
+    
+    # Add values
+    pdf.ln(10)
+    pdf.cell(200, 10, txt=f"Integrity: {integrity}", ln=True)
+    pdf.cell(200, 10, txt=f"Sustainability: {sustainability}", ln=True)
+    pdf.cell(200, 10, txt=f"Community: {community}", ln=True)
+    
     return pdf.output(dest='S')
 
 def main():
