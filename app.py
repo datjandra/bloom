@@ -39,8 +39,8 @@ def save_pdf(fig, data, integrity, sustainability, community):
     pdf.cell(200, 10, txt=f"Sustainability: {sustainability}", ln=True)
     pdf.cell(200, 10, txt=f"Community: {community}", ln=True)
     
-    return pdf.output(dest='S').encode('latin-1')
-
+    return bytes(pdf.output())
+    
 def main():
     # Set up the Streamlit page
     st.title("Value Alignment Evaluation")
