@@ -2,3 +2,4 @@ streamlit
 clarifai-grpc
 plotly
 fpdf
+kaleido
