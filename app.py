@@ -132,14 +132,13 @@ def main():
         st.write(f"**Financial Stability:** {data['financial_stability_rationale']}")
         st.write(f"**Social Connections:** {data['social_connections_rationale']}")
 
-        if st.button("Save as PDF"):
-            pdf_output = save_pdf(fig, rationales, integrity, sustainability, community)
-            st.download_button(
-                label="Download PDF",
-                data=pdf_output.getvalue(),
-                file_name="personal_evaluation.pdf",
-                mime="application/pdf"
-            )
+        pdf_output = save_pdf(fig, rationales, integrity, sustainability, community)
+        st.download_button(
+            label="Download PDF",
+            data=pdf_output.getvalue(),
+            file_name="personal_evaluation.pdf",
+            mime="application/pdf"
+        )
 
 if __name__ == "__main__":
     main()
