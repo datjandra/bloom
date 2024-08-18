@@ -54,9 +54,9 @@ def main():
     
     # Real number inputs for Integrity, Sustainability, Community with at most one decimal point
     st.subheader("Values")
-    integrity = st.number_input("Integrity", min_value=0, max_value=10, step=1, random.randint(0, 10))
-    sustainability = st.number_input("Sustainability", min_value=0, max_value=10, step=1, random.randint(0, 10))
-    community = st.number_input("Community", min_value=0, max_value=10, step=1, random.randint(0, 10))
+    integrity = st.number_input("Integrity", min_value=0, max_value=10, step=1, value=random.randint(0, 10))
+    sustainability = st.number_input("Sustainability", min_value=0, max_value=10, step=1, value=random.randint(0, 10))
+    community = st.number_input("Community", min_value=0, max_value=10, step=1, value=random.randint(0, 10))
     
     # Submit button
     if st.button("Submit"):
