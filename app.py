@@ -17,6 +17,7 @@ action = st.text_input("Action", value="switching to a remote job", placeholder=
 age = st.number_input("Age", min_value=1, max_value=120, value=18, step=1, format="%d")
 
 # Real number inputs for Integrity, Sustainability, Community with at most one decimal point
+st.subheader("Values")
 integrity = st.number_input("Integrity", min_value=0.0, max_value=1.0, step=0.1, format="%.1f")
 sustainability = st.number_input("Sustainability", min_value=0.0, max_value=1.0, step=0.1, format="%.1f")
 community = st.number_input("Community", min_value=0.0, max_value=1.0, step=0.1, format="%.1f")
