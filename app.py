@@ -84,12 +84,11 @@ if st.button("Submit"):
     )
     
     # Display radar chart in Streamlit
-    st.title("Personal Evaluation Radar Chart")
     st.plotly_chart(fig)
     
     # Display rationales
     st.write("### Rationales")
-    st.write(f"**Stress Level Rationale:** {data['stress_level_rationale']}")
-    st.write(f"**Happiness Rationale:** {data['happiness_rationale']}")
-    st.write(f"**Financial Stability Rationale:** {data['financial_stability_rationale']}")
-    st.write(f"**Social Connections Rationale:** {data['social_connections_rationale']}")
+    st.write(f"**Stress Level:** {data['stress_level_rationale']}")
+    st.write(f"**Happiness:** {data['happiness_rationale']}")
+    st.write(f"**Financial Stability:** {data['financial_stability_rationale']}")
+    st.write(f"**Social Connections:** {data['social_connections_rationale']}")
