@@ -1,5 +1,6 @@
 import streamlit as st
 import os
+import random
 import plotly.graph_objects as go
 
 SYSTEM_PROMPT = os.getenv("SYSTEM_PROMPT")
@@ -17,9 +18,9 @@ action = st.text_input("Action", value="switching to a remote job", placeholder=
 
 # Real number inputs for Integrity, Sustainability, Community with at most one decimal point
 st.subheader("Values")
-integrity = st.number_input("Integrity", min_value=0.0, max_value=1.0, step=0.1, format="%.1f")
-sustainability = st.number_input("Sustainability", min_value=0.0, max_value=1.0, step=0.1, format="%.1f")
-community = st.number_input("Community", min_value=0.0, max_value=1.0, step=0.1, format="%.1f")
+integrity = st.number_input("Integrity", min_value=0.0, max_value=1.0, step=0.1, format="%.1f", value=round(random.uniform(0, 1), 1))
+sustainability = st.number_input("Sustainability", min_value=0.0, max_value=1.0, step=0.1, format="%.1f", value=round(random.uniform(0, 1), 1))
+community = st.number_input("Community", min_value=0.0, max_value=1.0, step=0.1, format="%.1f", value=round(random.uniform(0, 1), 1))
 
 # Submit button
 if st.button("Submit"):
