@@ -9,12 +9,11 @@ INPUT_PROMPT = os.getenv("INPUT_PROMPT")
 st.title("Value Alignment Evaluation")
 
 # Text inputs
+st.subheader("User")
 name = st.text_input("Name", value="John")
 gender = st.selectbox("Gender", ["Male", "Female"])
-action = st.text_input("Action", value="switching to a remote job", placeholder="e.g., switching to a remote job or volunteer")
-
-# Whole number input for age
 age = st.number_input("Age", min_value=1, max_value=120, value=18, step=1, format="%d")
+action = st.text_input("Action", value="switching to a remote job", placeholder="e.g., switching to a remote job or volunteer")
 
 # Real number inputs for Integrity, Sustainability, Community with at most one decimal point
 st.subheader("Values")
