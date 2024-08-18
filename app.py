@@ -16,7 +16,6 @@ def save_pdf(fig, data, integrity, sustainability, community):
     
     # Add title
     pdf.set_font("Arial", size=12)
-    pdf.cell(200, 10, txt="Personal Evaluation Report", ln=True, align='C')
     
     # Add radar chart image
     img_bytes = fig.to_image(format="png", engine="kaleido")
