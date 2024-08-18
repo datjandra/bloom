@@ -14,7 +14,7 @@ st.subheader("User")
 name = st.text_input("Name", value="John")
 gender = st.selectbox("Gender", ["Male", "Female"])
 age = st.number_input("Age", min_value=1, max_value=120, value=18, step=1, format="%d")
-action = st.text_input("Action", value="switching to a remote job", placeholder="e.g., switching to a remote job or volunteer")
+action = st.text_input("Action", value="switching to a remote job")
 
 # Real number inputs for Integrity, Sustainability, Community with at most one decimal point
 st.subheader("Values")
