@@ -9,7 +9,7 @@ SYSTEM_PROMPT = os.getenv("SYSTEM_PROMPT")
 INPUT_PROMPT = os.getenv("INPUT_PROMPT")
 
 # Function to save radar chart as PDF
-def save_pdf(fig, rationales, integrity, sustainability, community):
+def save_pdf(fig, data, integrity, sustainability, community):
     # Save radar chart as an image
     img_bytes = fig.to_image(format="png")
     
@@ -19,7 +19,7 @@ def save_pdf(fig, rationales, integrity, sustainability, community):
     
     # Add title
     pdf.set_font("Arial", size=12)
-    pdf.cell(200, 10, txt="Personal Evaluation Radar Chart", ln=True, align='C')
+    pdf.cell(200, 10, txt="Personal Evaluation Report", ln=True, align='C')
     
     # Add radar chart image
     pdf.image(io.BytesIO(img_bytes), x=10, y=20, w=180)
@@ -27,8 +27,11 @@ def save_pdf(fig, rationales, integrity, sustainability, community):
     # Add rationales
     pdf.ln(120)  # Move cursor to the next line
     pdf.set_font("Arial", size=10)
-    pdf.cell(200, 10, txt="Rationales:", ln=True)
-    pdf.multi_cell(0, 10, rationales)
+    pdf.cell(200, 10, txt="Summary:", ln=True)
+    pdf.cell(200, 10, txt=f"Stress Level: {data['stress_level_rationale']}", ln=True)
+    pdf.cell(200, 10, txt=f"Happiness: {data['happiness_rationale']}", ln=True)
+    pdf.cell(200, 10, txt=f"Financial Stability: {data['financial_stability_rationale']}", ln=True)
+    pdf.cell(200, 10, txt=f"Social Connections: {data['social_connections_rationale']}", ln=True)
     
     # Add values
     pdf.ln(10)
@@ -132,7 +135,7 @@ def main():
         st.write(f"**Financial Stability:** {data['financial_stability_rationale']}")
         st.write(f"**Social Connections:** {data['social_connections_rationale']}")
 
-        pdf_output = save_pdf(fig, rationales, integrity, sustainability, community)
+        pdf_output = save_pdf(fig, data, integrity, sustainability, community)
         st.download_button(
             label="Download PDF",
             data=pdf_output.getvalue(),
