@@ -1,6 +1,7 @@
 import streamlit as st
 import os
 
+SYSTEM_PROMPT = os.getenv("SYSTEM_PROMPT")
 INPUT_PROMPT = os.getenv("INPUT_PROMPT")
 
 # Set up the Streamlit page
@@ -35,5 +36,11 @@ if st.button("Submit"):
         gender_possessive = "Their"
 
     input_prompt = INPUT_PROMPT.format(name=name, age=age, gender_subject=gender_subject, gender_possessive=gender_possessive, action=action, integrity=integrity, sustainability=sustainability, community=community)
+    prompt_template = '''<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+    {SYSTEM_PROMPT}<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+    {input_prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>'''
+    
     st.write("Submitted Information:")
-    st.write(input_prompt)
+    st.write(prompt_template)
