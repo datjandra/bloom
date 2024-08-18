@@ -17,9 +17,7 @@ def save_pdf(fig, data, integrity, sustainability, community):
     pdf.set_font("Arial", size=12)
     pdf.cell(200, 10, txt="Personal Evaluation Report", ln=True, align='C')
 
-    pdf_output = io.BytesIO()
-    pdf.output(pdf_output)
-    return pdf_output
+    return pdf.output(dest='S')
 
 def main():
     # Set up the Streamlit page
@@ -113,7 +111,7 @@ def main():
         pdf_output = save_pdf(fig, data, integrity, sustainability, community)
         st.download_button(
             label="Download PDF",
-            data=pdf_output.read(),
+            data=pdf_output,
             file_name="personal_evaluation.pdf",
             mime="application/pdf"
         )
