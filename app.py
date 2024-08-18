@@ -19,8 +19,9 @@ def save_pdf(fig, data, integrity, sustainability, community):
     pdf.cell(200, 10, txt="Personal Evaluation Report", ln=True, align='C')
     
     # Add radar chart image
-    img_bytes = fig.to_image(format="png")
-    pdf.image(img_bytes, 10, 20, 180)
+    img_bytes = fig.to_image(format="png", engine="kaleido")
+    image = io.BytesIO(img_bytes)
+    pdf.image(image)
 
     # Add rationales
     pdf.ln(120)  # Move cursor to the next line
