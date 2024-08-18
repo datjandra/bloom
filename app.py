@@ -138,7 +138,7 @@ def main():
         pdf_output = save_pdf(fig, data, integrity, sustainability, community)
         st.download_button(
             label="Download PDF",
-            data=pdf_output.getvalue(),
+            data=pdf_output,
             file_name="personal_evaluation.pdf",
             mime="application/pdf"
         )
