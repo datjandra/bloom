@@ -10,38 +10,9 @@ INPUT_PROMPT = os.getenv("INPUT_PROMPT")
 
 # Function to save radar chart as PDF
 def save_pdf(fig, data, integrity, sustainability, community):
-    # Save radar chart as an image
-    img_bytes = fig.to_image(format="png")
-    
-    # Create a PDF
-    pdf = FPDF()
-    pdf.add_page()
-    
-    # Add title
-    pdf.set_font("Arial", size=12)
-    pdf.cell(200, 10, txt="Personal Evaluation Report", ln=True, align='C')
-    
-    # Add radar chart image
-    pdf.image(io.BytesIO(img_bytes), x=10, y=20, w=180)
-    
-    # Add rationales
-    pdf.ln(120)  # Move cursor to the next line
-    pdf.set_font("Arial", size=10)
-    pdf.cell(200, 10, txt="Summary:", ln=True)
-    pdf.cell(200, 10, txt=f"Stress Level: {data['stress_level_rationale']}", ln=True)
-    pdf.cell(200, 10, txt=f"Happiness: {data['happiness_rationale']}", ln=True)
-    pdf.cell(200, 10, txt=f"Financial Stability: {data['financial_stability_rationale']}", ln=True)
-    pdf.cell(200, 10, txt=f"Social Connections: {data['social_connections_rationale']}", ln=True)
-    
-    # Add values
-    pdf.ln(10)
-    pdf.cell(200, 10, txt=f"Integrity: {integrity}", ln=True)
-    pdf.cell(200, 10, txt=f"Sustainability: {sustainability}", ln=True)
-    pdf.cell(200, 10, txt=f"Community: {community}", ln=True)
-    
     # Save PDF to a BytesIO object
     pdf_output = io.BytesIO()
-    pdf.output(pdf_output)
+    fig.write_image(file=pdf_output, format="pdf")
     
     # Return the BytesIO object
     return pdf_output
