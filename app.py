@@ -20,7 +20,7 @@ def save_pdf(fig, data, integrity, sustainability, community):
     # Add radar chart image
     img_bytes = fig.to_image(format="png", engine="kaleido")
     image = io.BytesIO(img_bytes)
-    pdf.image(image)
+    pdf.image(image, x=10, y=20, w=180)
 
     # Add rationales
     pdf.ln(120)  # Move cursor to the next line
