@@ -24,7 +24,7 @@ def save_pdf(fig, data, integrity, sustainability, community):
     pdf.image(image, x=10, y=20, w=180)
 
     # Add rationales
-    pdf.ln(140)  # Move cursor to the next line
+    pdf.ln(130)  # Move cursor to the next line
     pdf.set_font("helvetica", size=10)
     pdf.cell(200, 10, text="Summary", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     pdf.cell(200, 10, text=f"Stress Level: {data['stress_level_rationale']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
@@ -34,10 +34,10 @@ def save_pdf(fig, data, integrity, sustainability, community):
     
     # Add values
     pdf.ln()
-    pdf.cell(200, 10, text="Values", ln=True)
-    pdf.cell(200, 10, text=f"Integrity: {integrity}", ln=True)
-    pdf.cell(200, 10, text=f"Sustainability: {sustainability}", ln=True)
-    pdf.cell(200, 10, text=f"Community: {community}", ln=True)
+    pdf.cell(200, 10, text="Values", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.cell(200, 10, text=f"Integrity: {integrity}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.cell(200, 10, text=f"Sustainability: {sustainability}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.cell(200, 10, text=f"Community: {community}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     
     return bytes(pdf.output())
     
