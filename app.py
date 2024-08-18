@@ -60,7 +60,7 @@ def main():
         community = st.slider("Community", min_value=0, max_value=10, step=1, value=random.randint(0, 10))
     
         # Submit button
-        if st.button("Submit"):
+        if st.form_submit_button("Submit"):
             # Process the inputs
             # Determine gender-specific terms
             if gender == "Male":
