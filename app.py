@@ -22,7 +22,7 @@ def save_pdf(fig, data, integrity, sustainability, community):
     pdf.cell(200, 10, txt="Personal Evaluation Report", ln=True, align='C')
     
     # Add radar chart image
-    pdf.image(io.BytesIO(img_bytes), x=10, y=20, w=180)
+    pdf.image(img_bytes, x=10, y=20, w=180)
 
     # Add rationales
     pdf.ln(120)  # Move cursor to the next line
