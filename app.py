@@ -3,6 +3,7 @@ import os
 import random
 import plotly.graph_objects as go
 from fpdf import FPDF
+from fpdf.enums import XPos, YPos
 import io
 
 SYSTEM_PROMPT = os.getenv("SYSTEM_PROMPT")
@@ -15,7 +16,7 @@ def save_pdf(fig, data, integrity, sustainability, community):
     pdf.add_page()
     
     # Add title
-    pdf.set_font("Arial", size=12)
+    pdf.set_font("helvetica", size=12)
     
     # Add radar chart image
     img_bytes = fig.to_image(format="png", engine="kaleido")
@@ -23,16 +24,16 @@ def save_pdf(fig, data, integrity, sustainability, community):
     pdf.image(image, x=10, y=20, w=180)
 
     # Add rationales
-    pdf.ln(120)  # Move cursor to the next line
-    pdf.set_font("Arial", size=10)
-    pdf.cell(200, 10, text="Summary")
-    pdf.cell(200, 10, text=f"Stress Level: {data['stress_level_rationale']}")
-    pdf.cell(200, 10, text=f"Happiness: {data['happiness_rationale']}")
-    pdf.cell(200, 10, text=f"Financial Stability: {data['financial_stability_rationale']}")
-    pdf.cell(200, 10, text=f"Social Connections: {data['social_connections_rationale']}")
+    pdf.ln()  # Move cursor to the next line
+    pdf.set_font("helvetica", size=10)
+    pdf.cell(200, 10, text="Summary", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.cell(200, 10, text=f"Stress Level: {data['stress_level_rationale']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.cell(200, 10, text=f"Happiness: {data['happiness_rationale']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.cell(200, 10, text=f"Financial Stability: {data['financial_stability_rationale']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.cell(200, 10, text=f"Social Connections: {data['social_connections_rationale']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     
     # Add values
-    pdf.ln(10)
+    pdf.ln()
     pdf.cell(200, 10, text="Values", ln=True)
     pdf.cell(200, 10, text=f"Integrity: {integrity}", ln=True)
     pdf.cell(200, 10, text=f"Sustainability: {sustainability}", ln=True)
