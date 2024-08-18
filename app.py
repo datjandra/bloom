@@ -34,7 +34,7 @@ def save_pdf(fig, data, integrity, sustainability, community):
     pdf.cell(200, 10, txt=f"Sustainability: {sustainability}", ln=True)
     pdf.cell(200, 10, txt=f"Community: {community}", ln=True)
     
-    return BytesIO(pdf.output(dest='S'))
+    return io.BytesIO(pdf.output(dest='S'))
 
 def main():
     # Set up the Streamlit page
