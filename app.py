@@ -1,5 +1,6 @@
 import streamlit as st
 import os
+import plotly.graph_objects as go
 
 SYSTEM_PROMPT = os.getenv("SYSTEM_PROMPT")
 INPUT_PROMPT = os.getenv("INPUT_PROMPT")
@@ -40,5 +41,55 @@ if st.button("Submit"):
     {SYSTEM_PROMPT}<|eot_id|><|start_header_id|>user<|end_header_id|>
     {input_prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>'''
     
-    st.write("Submitted Information:")
-    st.write(prompt_template)
+    # JSON data
+    data = {
+        "stress_level": 0.4,
+        "stress_level_rationale": "Lower stress due to reduced commute and work-life balance",
+        "happiness": 0.6,
+        "happiness_rationale": "Increased happiness due to flexibility and reduced office distractions",
+        "financial_stability": 0.9,
+        "financial_stability_rationale": "Higher financial stability due to reduced living expenses and flexible work schedule",
+        "social_connections": 0.3,
+        "social_connections_rationale": "Potential decrease in social connections due to reduced face-to-face interactions"
+    }
+    
+    # Extract values for the radar chart
+    categories = ['Stress Level', 'Happiness', 'Financial Stability', 'Social Connections']
+    values = [
+        data['stress_level'],
+        data['happiness'],
+        data['financial_stability'],
+        data['social_connections']
+    ]
+    
+    # Create radar chart using Plotly
+    fig = go.Figure()
+    
+    fig.add_trace(go.Scatterpolar(
+        r=values,
+        theta=categories,
+        fill='toself',
+        name='Evaluation'
+    ))
+    
+    fig.update_layout(
+        polar=dict(
+            radialaxis=dict(
+                visible=True,
+                range=[0, 1]
+            )
+        ),
+        showlegend=False,
+        title="Personal Evaluation Radar Chart"
+    )
+    
+    # Display radar chart in Streamlit
+    st.title("Personal Evaluation Radar Chart")
+    st.plotly_chart(fig)
+    
+    # Display rationales
+    st.write("### Rationales")
+    st.write(f"**Stress Level Rationale:** {data['stress_level_rationale']}")
+    st.write(f"**Happiness Rationale:** {data['happiness_rationale']}")
+    st.write(f"**Financial Stability Rationale:** {data['financial_stability_rationale']}")
+    st.write(f"**Social Connections Rationale:** {data['social_connections_rationale']}")
