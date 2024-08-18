@@ -25,11 +25,11 @@ def save_pdf(fig, data, integrity, sustainability, community):
     # Add rationales
     pdf.ln(120)  # Move cursor to the next line
     pdf.set_font("Arial", size=10)
-    pdf.cell(200, 10, text="Summary", ln=True)
-    pdf.cell(200, 10, text=f"Stress Level: {data['stress_level_rationale']}", ln=True)
-    pdf.cell(200, 10, text=f"Happiness: {data['happiness_rationale']}", ln=True)
-    pdf.cell(200, 10, text=f"Financial Stability: {data['financial_stability_rationale']}", ln=True)
-    pdf.cell(200, 10, text=f"Social Connections: {data['social_connections_rationale']}", ln=True)
+    pdf.cell(200, 10, text="Summary")
+    pdf.cell(200, 10, text=f"Stress Level: {data['stress_level_rationale']}")
+    pdf.cell(200, 10, text=f"Happiness: {data['happiness_rationale']}")
+    pdf.cell(200, 10, text=f"Financial Stability: {data['financial_stability_rationale']}")
+    pdf.cell(200, 10, text=f"Social Connections: {data['social_connections_rationale']}")
     
     # Add values
     pdf.ln(10)
