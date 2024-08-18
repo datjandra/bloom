@@ -8,7 +8,7 @@ INPUT_PROMPT = os.getenv("INPUT_PROMPT")
 st.title("Value Alignment Evaluation")
 
 # Text inputs
-name = st.text_input("Name")
+name = st.text_input("Name", value="Default")
 gender = st.selectbox("Gender", ["Male", "Female"])
 action = st.text_input("Action", placeholder="e.g., switch to a remote job or volunteer")
 
