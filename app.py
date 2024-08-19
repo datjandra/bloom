@@ -15,14 +15,19 @@ def save_pdf(name, gender, age, action, fig, data, integrity, sustainability, co
     pdf = FPDF()
     pdf.add_page()
     
-    # Add title
     pdf.set_font("helvetica", size=12)
     pdf.cell(200, 10, text="User", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     pdf.cell(200, 10, text=f"Name: {name}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     pdf.cell(200, 10, text=f"Gender: {gender}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     pdf.cell(200, 10, text=f"Age: {age}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     pdf.cell(200, 10, text=f"Action: {action}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+
+    # Add values
     pdf.ln()
+    pdf.cell(200, 10, text="Values", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.cell(200, 10, text=f"Integrity: {integrity}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.cell(200, 10, text=f"Sustainability: {sustainability}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.cell(200, 10, text=f"Community: {community}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     
     # Add radar chart image
     img_bytes = fig.to_image(format="png", engine="kaleido")
@@ -37,13 +42,6 @@ def save_pdf(name, gender, age, action, fig, data, integrity, sustainability, co
     pdf.cell(200, 10, text=f"Happiness: {data['happiness_rationale']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     pdf.cell(200, 10, text=f"Financial Stability: {data['financial_stability_rationale']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     pdf.cell(200, 10, text=f"Social Connections: {data['social_connections_rationale']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-    
-    # Add values
-    pdf.ln()
-    pdf.cell(200, 10, text="Values", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-    pdf.cell(200, 10, text=f"Integrity: {integrity}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-    pdf.cell(200, 10, text=f"Sustainability: {sustainability}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-    pdf.cell(200, 10, text=f"Community: {community}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     
     return bytes(pdf.output())
     
