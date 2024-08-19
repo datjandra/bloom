@@ -1,5 +1,5 @@
 streamlit
-clarifai-grpc
+clarifai
 plotly
 fpdf2
 kaleido
