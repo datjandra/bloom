@@ -22,19 +22,16 @@ def save_pdf(name, gender, age, action, fig, data, integrity, sustainability, co
     pdf.cell(200, 10, text=f"Age: {age}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     pdf.cell(200, 10, text=f"Action: {action}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
 
-    # Add values
     pdf.ln()
     pdf.cell(200, 10, text="Values", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     pdf.cell(200, 10, text=f"Integrity: {integrity}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     pdf.cell(200, 10, text=f"Sustainability: {sustainability}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     pdf.cell(200, 10, text=f"Community: {community}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     
-    # Add radar chart image
     img_bytes = fig.to_image(format="png", engine="kaleido")
     image = io.BytesIO(img_bytes)
     pdf.image(image, x=10, w=180)
 
-    # Add rationales
     pdf.ln(130)  # Move cursor to the next line
     pdf.set_font("helvetica", size=10)
     pdf.cell(200, 10, text="Summary", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
@@ -46,10 +43,8 @@ def save_pdf(name, gender, age, action, fig, data, integrity, sustainability, co
     return bytes(pdf.output())
     
 def main():
-    # Set up the Streamlit page
     st.title("Value Alignment Evaluation")
     
-    # Text inputs
     with st.form("scenario_form"):
         st.subheader("User")
         name = st.text_input("Name", value="John")
@@ -57,7 +52,6 @@ def main():
         age = st.number_input("Age", min_value=1, max_value=120, value=18, step=1, format="%d")
         action = st.text_input("Action", value="switching to a remote job")
         
-        # Real number inputs for Integrity, Sustainability, Community with at most one decimal point
         st.subheader("Values")
         integrity = st.slider("Integrity", min_value=0, max_value=10, step=1, value=random.randint(0, 10))
         sustainability = st.slider("Sustainability", min_value=0, max_value=10, step=1, value=random.randint(0, 10))
