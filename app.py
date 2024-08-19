@@ -10,13 +10,18 @@ SYSTEM_PROMPT = os.getenv("SYSTEM_PROMPT")
 INPUT_PROMPT = os.getenv("INPUT_PROMPT")
 
 # Function to save radar chart as PDF
-def save_pdf(fig, data, integrity, sustainability, community):
+def save_pdf(name, gender, age, action, fig, data, integrity, sustainability, community):
     # Create a PDF
     pdf = FPDF()
     pdf.add_page()
     
     # Add title
     pdf.set_font("helvetica", size=12)
+    pdf.cell(200, 10, text="User", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.cell(200, 10, text=f"Name: {name}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.cell(200, 10, text=f"Gender: {gender}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.cell(200, 10, text=f"Age: {age}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.cell(200, 10, text=f"Action: {action}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     
     # Add radar chart image
     img_bytes = fig.to_image(format="png", engine="kaleido")
@@ -132,7 +137,7 @@ def main():
                 st.write(f"**Financial Stability:** {data['financial_stability_rationale']}")
                 st.write(f"**Social Connections:** {data['social_connections_rationale']}")
     
-                pdf_output = save_pdf(fig, data, integrity, sustainability, community)
+                pdf_output = save_pdf(name, gender, age, action, fig, data, integrity, sustainability, community)
 
     try:
         st.download_button(
