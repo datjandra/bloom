@@ -6,7 +6,7 @@ from fpdf import FPDF
 from fpdf.enums import XPos, YPos
 import io
 from clarifai.client.model import Model
-import re
+import regex
 import json
 
 SYSTEM_PROMPT = os.getenv("SYSTEM_PROMPT")
@@ -47,10 +47,10 @@ def save_pdf(name, gender, age, action, fig, data, integrity, sustainability, co
 
 def extract_json(text):
     # Define a regular expression pattern to match the JSON structure
-    pattern = r'\{(?:[^{}]|(?R))*\}'
+    pattern = regex.compile(r'\{(?:[^{}]|(?R))*\}')
     
     # Find all matches of the JSON pattern in the input text
-    matches = re.findall(pattern, text)
+    matches = pattern.findall(text)
     
     # Assuming there is only one JSON structure in the input text
     json_string = matches[0] if matches else None
