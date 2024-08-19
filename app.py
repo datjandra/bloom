@@ -75,7 +75,9 @@ def main():
             
                 input_prompt = INPUT_PROMPT.format(name=name, age=age, gender_subject=gender_subject, gender_possessive=gender_possessive, action=action, integrity=integrity, sustainability=sustainability, community=community)
                 prompt_template = f'''<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+                
                 {SYSTEM_PROMPT}<|eot_id|><|start_header_id|>user<|end_header_id|>
+                
                 {input_prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>'''
                 
                 # JSON data
