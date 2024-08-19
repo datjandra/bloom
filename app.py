@@ -6,6 +6,8 @@ from fpdf import FPDF
 from fpdf.enums import XPos, YPos
 import io
 from clarifai.client.model import Model
+import re
+import json
 
 SYSTEM_PROMPT = os.getenv("SYSTEM_PROMPT")
 INPUT_PROMPT = os.getenv("INPUT_PROMPT")
@@ -42,6 +44,65 @@ def save_pdf(name, gender, age, action, fig, data, integrity, sustainability, co
     pdf.cell(200, 10, text=f"Social Connections: {data['social_connections_rationale']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     
     return bytes(pdf.output())
+
+def extract_json(text):
+    # Define a regular expression pattern to match the JSON structure
+    pattern = r'\{(?:[^{}]|(?R))*\}'
+    
+    # Find all matches of the JSON pattern in the input text
+    matches = re.findall(pattern, text)
+    
+    # Assuming there is only one JSON structure in the input text
+    json_string = matches[0] if matches else None
+    
+    # Parse the JSON string into a Python dictionary
+    if json_string:
+        try:
+            json_data = json.loads(json_string)
+            return json_data
+        except json.JSONDecodeError as e:
+            # Error decoding JSON
+            return None
+    else:
+        # No JSON structure found
+        return None
+
+def predict_outcomes(name, gender, age, action, integrity, sustainability, community):
+    # Determine gender-specific terms
+    if gender == "Male":
+        gender_subject = "He"
+        gender_possessive = "His"
+    elif gender == "Female":
+        gender_subject = "She"
+        gender_possessive = "Her"
+    else:
+        # Handle the case where gender is not recognized
+        gender_subject = "They"
+        gender_possessive = "Their"
+                    
+    input_prompt = INPUT_PROMPT.format(name=name, 
+                                       age=age, 
+                                       gender_subject=gender_subject, 
+                                       gender_possessive=gender_possessive, 
+                                       action=action, 
+                                       integrity=integrity, 
+                                       sustainability=sustainability, 
+                                       community=community)
+    prompt_template = f'''<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+    
+    {SYSTEM_PROMPT}<|eot_id|><|start_header_id|>user<|end_header_id|>
+    
+    {input_prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>'''
+
+    inference_params = dict(temperature=0.7, 
+                            max_tokens=256, 
+                            top_k=50, 
+                            top_p= 0.95, 
+                            prompt_template=prompt_template, 
+                            system_prompt=SYSTEM_PROMPT)
+
+    model_prediction = Model("https://clarifai.com/meta/Llama-3/models/llama-3_1-8b-instruct").predict_by_bytes(input_prompt.encode(), input_type="text", inference_params=inference_params)
+    return model_prediction.outputs[0].data.text.raw
     
 def main():
     st.title("Value Alignment Evaluation")
@@ -62,37 +123,9 @@ def main():
         if submit_button:
             with st.spinner('Building your personal evaluation report...'):
                 # Process the inputs
-                # Determine gender-specific terms
-                if gender == "Male":
-                    gender_subject = "He"
-                    gender_possessive = "His"
-                elif gender == "Female":
-                    gender_subject = "She"
-                    gender_possessive = "Her"
-                else:
-                    # Handle the case where gender is not recognized
-                    gender_subject = "They"
-                    gender_possessive = "Their"
-            
-                input_prompt = INPUT_PROMPT.format(name=name, age=age, gender_subject=gender_subject, gender_possessive=gender_possessive, action=action, integrity=integrity, sustainability=sustainability, community=community)
-                prompt_template = f'''<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+                text_raw = predict_outcomes(name, gender, age, action, integrity, sustainability, community)
+                data = extract_json(text_raw)
                 
-                {SYSTEM_PROMPT}<|eot_id|><|start_header_id|>user<|end_header_id|>
-                
-                {input_prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>'''
-                
-                # JSON data
-                data = {
-                    "stress_level": 4,
-                    "stress_level_rationale": "Lower stress due to reduced commute and work-life balance",
-                    "happiness": 6,
-                    "happiness_rationale": "Increased happiness due to flexibility and reduced office distractions",
-                    "financial_stability": 9,
-                    "financial_stability_rationale": "Higher financial stability due to reduced living expenses and flexible work schedule",
-                    "social_connections": 3,
-                    "social_connections_rationale": "Potential decrease in social connections due to reduced face-to-face interactions"
-                }
-            
                 # Extract values for the radar chart
                 categories = ['Stress Level', 'Happiness', 'Financial Stability', 'Social Connections']
                 values = [
