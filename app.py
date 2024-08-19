@@ -61,77 +61,78 @@ def main():
     
         # Submit button
         if st.form_submit_button("Submit"):
-            # Process the inputs
-            # Determine gender-specific terms
-            if gender == "Male":
-                gender_subject = "He"
-                gender_possessive = "His"
-            elif gender == "Female":
-                gender_subject = "She"
-                gender_possessive = "Her"
-            else:
-                # Handle the case where gender is not recognized
-                gender_subject = "They"
-                gender_possessive = "Their"
-        
-            input_prompt = INPUT_PROMPT.format(name=name, age=age, gender_subject=gender_subject, gender_possessive=gender_possessive, action=action, integrity=integrity, sustainability=sustainability, community=community)
-            prompt_template = f'''<|begin_of_text|><|start_header_id|>system<|end_header_id|>
-            {SYSTEM_PROMPT}<|eot_id|><|start_header_id|>user<|end_header_id|>
-            {input_prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>'''
+            with st.spinner('Building your personal evaluation report...'):
+                # Process the inputs
+                # Determine gender-specific terms
+                if gender == "Male":
+                    gender_subject = "He"
+                    gender_possessive = "His"
+                elif gender == "Female":
+                    gender_subject = "She"
+                    gender_possessive = "Her"
+                else:
+                    # Handle the case where gender is not recognized
+                    gender_subject = "They"
+                    gender_possessive = "Their"
             
-            # JSON data
-            data = {
-                "stress_level": 4,
-                "stress_level_rationale": "Lower stress due to reduced commute and work-life balance",
-                "happiness": 6,
-                "happiness_rationale": "Increased happiness due to flexibility and reduced office distractions",
-                "financial_stability": 9,
-                "financial_stability_rationale": "Higher financial stability due to reduced living expenses and flexible work schedule",
-                "social_connections": 3,
-                "social_connections_rationale": "Potential decrease in social connections due to reduced face-to-face interactions"
-            }
-        
-            # Extract values for the radar chart
-            categories = ['Stress Level', 'Happiness', 'Financial Stability', 'Social Connections']
-            values = [
-                data['stress_level'],
-                data['happiness'],
-                data['financial_stability'],
-                data['social_connections']
-            ]
+                input_prompt = INPUT_PROMPT.format(name=name, age=age, gender_subject=gender_subject, gender_possessive=gender_possessive, action=action, integrity=integrity, sustainability=sustainability, community=community)
+                prompt_template = f'''<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+                {SYSTEM_PROMPT}<|eot_id|><|start_header_id|>user<|end_header_id|>
+                {input_prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>'''
+                
+                # JSON data
+                data = {
+                    "stress_level": 4,
+                    "stress_level_rationale": "Lower stress due to reduced commute and work-life balance",
+                    "happiness": 6,
+                    "happiness_rationale": "Increased happiness due to flexibility and reduced office distractions",
+                    "financial_stability": 9,
+                    "financial_stability_rationale": "Higher financial stability due to reduced living expenses and flexible work schedule",
+                    "social_connections": 3,
+                    "social_connections_rationale": "Potential decrease in social connections due to reduced face-to-face interactions"
+                }
             
-            # Create radar chart using Plotly
-            fig = go.Figure()
+                # Extract values for the radar chart
+                categories = ['Stress Level', 'Happiness', 'Financial Stability', 'Social Connections']
+                values = [
+                    data['stress_level'],
+                    data['happiness'],
+                    data['financial_stability'],
+                    data['social_connections']
+                ]
+                
+                # Create radar chart using Plotly
+                fig = go.Figure()
+                
+                fig.add_trace(go.Scatterpolar(
+                    r=values,
+                    theta=categories,
+                    fill='toself',
+                    name='Evaluation'
+                ))
             
-            fig.add_trace(go.Scatterpolar(
-                r=values,
-                theta=categories,
-                fill='toself',
-                name='Evaluation'
-            ))
-        
-            fig.update_layout(
-                polar=dict(
-                    radialaxis=dict(
-                        visible=True,
-                        range=[0, 10]
-                    )
-                ),
-                showlegend=False,
-                title="Personal Evaluation Report"
-            )
-            
-            # Display radar chart in Streamlit
-            st.plotly_chart(fig)
-            
-            # Display rationales
-            st.write("### Summary")
-            st.write(f"**Stress Level:** {data['stress_level_rationale']}")
-            st.write(f"**Happiness:** {data['happiness_rationale']}")
-            st.write(f"**Financial Stability:** {data['financial_stability_rationale']}")
-            st.write(f"**Social Connections:** {data['social_connections_rationale']}")
-
-            pdf_output = save_pdf(fig, data, integrity, sustainability, community)
+                fig.update_layout(
+                    polar=dict(
+                        radialaxis=dict(
+                            visible=True,
+                            range=[0, 10]
+                        )
+                    ),
+                    showlegend=False,
+                    title="Personal Evaluation Report"
+                )
+                
+                # Display radar chart in Streamlit
+                st.plotly_chart(fig)
+                
+                # Display rationales
+                st.write("### Summary")
+                st.write(f"**Stress Level:** {data['stress_level_rationale']}")
+                st.write(f"**Happiness:** {data['happiness_rationale']}")
+                st.write(f"**Financial Stability:** {data['financial_stability_rationale']}")
+                st.write(f"**Social Connections:** {data['social_connections_rationale']}")
+    
+                pdf_output = save_pdf(fig, data, integrity, sustainability, community)
 
     try:
         st.download_button(
