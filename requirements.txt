@@ -3,3 +3,4 @@ clarifai
 plotly
 fpdf2
 kaleido
+regex
