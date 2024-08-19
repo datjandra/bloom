@@ -5,6 +5,7 @@ import plotly.graph_objects as go
 from fpdf import FPDF
 from fpdf.enums import XPos, YPos
 import io
+from clarifai.client.model import Model
 
 SYSTEM_PROMPT = os.getenv("SYSTEM_PROMPT")
 INPUT_PROMPT = os.getenv("INPUT_PROMPT")
