@@ -58,9 +58,9 @@ def main():
         integrity = st.slider("Integrity", min_value=0, max_value=10, step=1, value=random.randint(0, 10))
         sustainability = st.slider("Sustainability", min_value=0, max_value=10, step=1, value=random.randint(0, 10))
         community = st.slider("Community", min_value=0, max_value=10, step=1, value=random.randint(0, 10))
-    
-        # Submit button
-        if st.form_submit_button("Submit"):
+        
+        submit_button = st.form_submit_button("Submit")
+        if submit_button:
             with st.spinner('Building your personal evaluation report...'):
                 # Process the inputs
                 # Determine gender-specific terms
