@@ -22,11 +22,12 @@ def save_pdf(name, gender, age, action, fig, data, integrity, sustainability, co
     pdf.cell(200, 10, text=f"Gender: {gender}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     pdf.cell(200, 10, text=f"Age: {age}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     pdf.cell(200, 10, text=f"Action: {action}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.ln()
     
     # Add radar chart image
     img_bytes = fig.to_image(format="png", engine="kaleido")
     image = io.BytesIO(img_bytes)
-    pdf.image(image, x=10, y=20, w=180)
+    pdf.image(image, x=10, w=180)
 
     # Add rationales
     pdf.ln(130)  # Move cursor to the next line
