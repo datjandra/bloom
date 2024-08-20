@@ -8,6 +8,7 @@ import io
 from clarifai.client.model import Model
 import regex
 import json
+import time
 
 SYSTEM_PROMPT = os.getenv("SYSTEM_PROMPT")
 INPUT_PROMPT = os.getenv("INPUT_PROMPT")
@@ -123,19 +124,11 @@ def main():
         if submit_button:
             with st.spinner('Building your personal evaluation report...'):
                 # Process the inputs
-                # text_raw = predict_outcomes(name, gender, age, action, integrity, sustainability, community)
-                # data = extract_json(text_raw)
-
-                data = {
-                    "stress_level": 4,  # Scale up to 0-10 range
-                    "stress_level_rationale": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                    "happiness": 6,  # Scale up to 0-10 range
-                    "happiness_rationale": "Increased happiness due to flexibility and reduced office distractions",
-                    "financial_stability": 9,  # Scale up to 0-10 range
-                    "financial_stability_rationale": "Higher financial stability due to reduced living expenses and flexible work schedule",
-                    "social_connections": 3,  # Scale up to 0-10 range
-                    "social_connections_rationale": "Potential decrease in social connections due to reduced face-to-face interactions"
-                }
+                start_time = time.time()
+                text_raw = predict_outcomes(name, gender, age, action, integrity, sustainability, community)
+                data = extract_json(text_raw)
+                end_time = time.time()
+                elapsed_time = int(end_time - start_time)
                 
                 # Extract values for the radar chart
                 categories = ['Stress Level', 'Happiness', 'Financial Stability', 'Social Connections']
@@ -178,6 +171,7 @@ def main():
                 st.write(f"**Social Connections:** {data['social_connections_rationale']}")
     
                 pdf_output = save_pdf(name, gender, age, action, fig, data, integrity, sustainability, community)
+                st.caption(f"Processing time: {elapsed_time} seconds")
 
     try:
         st.download_button(
