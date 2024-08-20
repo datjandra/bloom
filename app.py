@@ -38,10 +38,10 @@ def save_pdf(name, gender, age, action, fig, data, integrity, sustainability, co
     pdf.ln(130)  # Move cursor to the next line
     pdf.set_font("helvetica", size=10)
     pdf.cell(200, 10, text="Summary", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-    pdf.cell(200, 10, text=f"Stress Level: {data['stress_level_rationale']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-    pdf.cell(200, 10, text=f"Happiness: {data['happiness_rationale']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-    pdf.cell(200, 10, text=f"Financial Stability: {data['financial_stability_rationale']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-    pdf.cell(200, 10, text=f"Social Connections: {data['social_connections_rationale']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.multi_cell(0, 10, text=f"Stress Level: {data['stress_level_rationale']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.multi_cell(0, 10, text=f"Happiness: {data['happiness_rationale']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.multi_cell(0, 10, text=f"Financial Stability: {data['financial_stability_rationale']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.multi_cell(0, 10, text=f"Social Connections: {data['social_connections_rationale']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     
     return bytes(pdf.output())
 
@@ -128,7 +128,7 @@ def main():
 
                 data = {
                     "stress_level": 4,  # Scale up to 0-10 range
-                    "stress_level_rationale": "Lower stress due to reduced commute and work-life balance",
+                    "stress_level_rationale": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                     "happiness": 6,  # Scale up to 0-10 range
                     "happiness_rationale": "Increased happiness due to flexibility and reduced office distractions",
                     "financial_stability": 9,  # Scale up to 0-10 range
