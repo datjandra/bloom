@@ -123,8 +123,19 @@ def main():
         if submit_button:
             with st.spinner('Building your personal evaluation report...'):
                 # Process the inputs
-                text_raw = predict_outcomes(name, gender, age, action, integrity, sustainability, community)
-                data = extract_json(text_raw)
+                # text_raw = predict_outcomes(name, gender, age, action, integrity, sustainability, community)
+                # data = extract_json(text_raw)
+
+                data = {
+                    "stress_level": 4,  # Scale up to 0-10 range
+                    "stress_level_rationale": "Lower stress due to reduced commute and work-life balance",
+                    "happiness": 6,  # Scale up to 0-10 range
+                    "happiness_rationale": "Increased happiness due to flexibility and reduced office distractions",
+                    "financial_stability": 9,  # Scale up to 0-10 range
+                    "financial_stability_rationale": "Higher financial stability due to reduced living expenses and flexible work schedule",
+                    "social_connections": 3,  # Scale up to 0-10 range
+                    "social_connections_rationale": "Potential decrease in social connections due to reduced face-to-face interactions"
+                }
                 
                 # Extract values for the radar chart
                 categories = ['Stress Level', 'Happiness', 'Financial Stability', 'Social Connections']
