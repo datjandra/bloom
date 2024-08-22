@@ -95,7 +95,7 @@ def predict_outcomes(name, gender, age, decision, integrity, sustainability, com
     
     {input_prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>'''
 
-    inference_params = dict(temperature=0.7, 
+    inference_params = dict(temperature=0.5, 
                             max_tokens=256, 
                             top_k=50, 
                             top_p= 0.95, 
