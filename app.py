@@ -138,7 +138,7 @@ def main():
         
         submit_button = st.form_submit_button("Submit")
         if submit_button:
-            with st.spinner('Report will be ready in a few minutes, please wait...'):
+            with st.spinner('Report may take a few minutes to create, please wait...'):
                 # Process the inputs
                 start_time = time.time()
                 text_raw = predict_outcomes(name, gender, age, decision, integrity, sustainability, community)
