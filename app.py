@@ -117,14 +117,24 @@ def main():
         decision = st.text_area("Decision", value="John wants to take a remote job as a software engineer. He is married with a wife, two teenage kids and a mortgage.")
 
         if 'value_integrity' in st.session_state:
-            integrity_value = st.session_state.value_integrity
+            integrity_value = st.session_state['value_integrity']
         else:
             integrity_value = random.randint(0, 10)
+
+        if 'value_sustainability' in st.session_state:
+            sustainability_value = st.session_state['value_sustainability']
+        else:
+            sustainability_value = random.randint(0, 10)
+
+        if 'value_community' in st.session_state:
+            community_value = st.session_state['value_community']
+        else:
+            community_value = random.randint(0, 10)
         
         st.subheader("Values")
         integrity = st.slider("Integrity", min_value=0, max_value=10, step=1, value=integrity_value, key="value_integrity")
-        sustainability = st.slider("Sustainability", min_value=0, max_value=10, step=1, value=random.randint(0, 10), key="value_sustainability")
-        community = st.slider("Community", min_value=0, max_value=10, step=1, value=random.randint(0, 10), key="value_community")
+        sustainability = st.slider("Sustainability", min_value=0, max_value=10, step=1, value=sustainability_value, key="value_sustainability")
+        community = st.slider("Community", min_value=0, max_value=10, step=1, value=community_value, key="value_community")
         
         submit_button = st.form_submit_button("Submit")
         if submit_button:
