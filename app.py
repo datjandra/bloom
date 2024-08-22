@@ -14,7 +14,7 @@ SYSTEM_PROMPT = os.getenv("SYSTEM_PROMPT")
 INPUT_PROMPT = os.getenv("INPUT_PROMPT")
 
 # Function to save radar chart as PDF
-def save_pdf(name, gender, age, action, fig, data, integrity, sustainability, community):
+def save_pdf(name, gender, age, decision, fig, data, integrity, sustainability, community):
     # Create a PDF
     pdf = FPDF()
     pdf.add_page()
@@ -24,7 +24,7 @@ def save_pdf(name, gender, age, action, fig, data, integrity, sustainability, co
     pdf.cell(200, 10, text=f"Name: {name}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     pdf.cell(200, 10, text=f"Gender: {gender}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     pdf.cell(200, 10, text=f"Age: {age}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-    pdf.cell(200, 10, text=f"Action: {action}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.multi_cell(0, 10, text=f"Decision: {decision}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
 
     pdf.ln()
     pdf.cell(200, 10, text="Values", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
@@ -68,7 +68,7 @@ def extract_json(text):
         # No JSON structure found
         return None
 
-def predict_outcomes(name, gender, age, action, integrity, sustainability, community):
+def predict_outcomes(name, gender, age, decision, integrity, sustainability, community):
     # Determine gender-specific terms
     if gender == "Male":
         gender_subject = "He"
@@ -85,7 +85,7 @@ def predict_outcomes(name, gender, age, action, integrity, sustainability, commu
                                        age=age, 
                                        gender_subject=gender_subject, 
                                        gender_possessive=gender_possessive, 
-                                       action=action, 
+                                       decision=decision, 
                                        integrity=integrity, 
                                        sustainability=sustainability, 
                                        community=community)
@@ -113,7 +113,7 @@ def main():
         name = st.text_input("Name", value="John")
         gender = st.selectbox("Gender", ["Male", "Female"])
         age = st.number_input("Age", min_value=1, max_value=120, value=18, step=1, format="%d")
-        action = st.text_input("Action", value="switching to a remote job")
+        decision = st.text_area("Decision", value="switching to a remote job as a software engineer")
         
         st.subheader("Values")
         integrity = st.slider("Integrity", min_value=0, max_value=10, step=1, value=random.randint(0, 10))
@@ -122,10 +122,10 @@ def main():
         
         submit_button = st.form_submit_button("Submit")
         if submit_button:
-            with st.spinner('Building your personal evaluation report...'):
+            with st.spinner('Report will be ready in a few minutes, please wait...'):
                 # Process the inputs
                 start_time = time.time()
-                text_raw = predict_outcomes(name, gender, age, action, integrity, sustainability, community)
+                text_raw = predict_outcomes(name, gender, age, decision, integrity, sustainability, community)
                 data = extract_json(text_raw)
                 end_time = time.time()
                 elapsed_time = int(end_time - start_time)
@@ -170,7 +170,7 @@ def main():
                 st.write(f"**Financial Stability:** {data['financial_stability_rationale']}")
                 st.write(f"**Social Connections:** {data['social_connections_rationale']}")
     
-                pdf_output = save_pdf(name, gender, age, action, fig, data, integrity, sustainability, community)
+                pdf_output = save_pdf(name, gender, age, decision, fig, data, integrity, sustainability, community)
                 st.caption(f"Processing time: {elapsed_time} seconds")
 
     try:
