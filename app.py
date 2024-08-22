@@ -38,7 +38,7 @@ def save_pdf(name, gender, age, decision, fig, data, integrity, sustainability, 
 
     pdf.ln(130)  # Move cursor to the next line
     pdf.set_font("helvetica", size=10)
-    pdf.cell(200, 10, text="Summary", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.cell(200, 10, text="Explanations", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     pdf.multi_cell(0, 10, text=f"Stress Level: {data['stress_level_rationale']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     pdf.multi_cell(0, 10, text=f"Happiness: {data['happiness_rationale']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     pdf.multi_cell(0, 10, text=f"Financial Stability: {data['financial_stability_rationale']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
@@ -180,7 +180,7 @@ def main():
                 st.plotly_chart(fig)
                 
                 # Display rationales
-                st.write("### Summary")
+                st.write("### Explanations")
                 st.write(f"**Stress Level:** {data['stress_level_rationale']}")
                 st.write(f"**Happiness:** {data['happiness_rationale']}")
                 st.write(f"**Financial Stability:** {data['financial_stability_rationale']}")
