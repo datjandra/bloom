@@ -110,10 +110,10 @@ def main():
     
     with st.form("scenario_form"):
         st.subheader("User")
-        name = st.text_input("Name", value="John")
+        name = st.text_input("Name", value="John Smith")
         gender = st.selectbox("Gender", ["Male", "Female"])
-        age = st.number_input("Age", min_value=1, max_value=120, value=18, step=1, format="%d")
-        decision = st.text_area("Decision", value="switching to a remote job as a software engineer")
+        age = st.number_input("Age", min_value=1, max_value=120, value=50, step=1, format="%d")
+        decision = st.text_area("Decision", value="John wants to take a remote job as a software engineer. He is married with a wife, two teenage kids and a mortgage.")
         
         st.subheader("Values")
         integrity = st.slider("Integrity", min_value=0, max_value=10, step=1, value=random.randint(0, 10))
