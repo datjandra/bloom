@@ -106,6 +106,7 @@ def predict_outcomes(name, gender, age, decision, integrity, sustainability, com
     return model_prediction.outputs[0].data.text.raw
     
 def main():
+    st.set_page_config(page_title="Bloom", page_icon='🌼')
     st.title("Value Alignment Evaluation")
     
     with st.form("scenario_form"):
