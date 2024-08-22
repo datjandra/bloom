@@ -116,7 +116,7 @@ def main():
         age = st.number_input("Age", min_value=1, max_value=120, value=50, step=1, format="%d")
         decision = st.text_area("Decision", value="John wants to take a remote job as a software engineer. He is married with a wife, two teenage kids and a mortgage.")
 
-        if st.session_state.value_integrity:
+        if 'value_integrity' in st.session_state:
             integrity_value = st.session_state.value_integrity
         else:
             integrity_value = random.randint(0, 10)
